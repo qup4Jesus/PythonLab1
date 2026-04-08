@@ -1,20 +1,20 @@
-from flask import Flask
-import sys
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def hello():
-    return 'Hello World!'
+    return "<html><body><h1>Hello World!</h1></body></html>"
 
-if __name__ == '__main__':
-    # Для CI: запускаем и даем поработать 10 секунд, затем выходим
-    import threading
-    import time
+@app.route("/data_to")
+def data_to():
+    some_pars = {'user': 'Ivan', 'color': 'red'}
+    some_str = 'Hello my dear friends!'
+    some_value = 10
+    return render_template('simple.html',
+                          some_str=some_str,
+                          some_value=some_value,
+                          some_pars=some_pars)
 
-    def shutdown():
-        time.sleep(10)
-        sys.exit(0)
-
-    threding.Thread(target = shutdown, daemon = True).start()
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(host='127.0.0.1', port=5000)

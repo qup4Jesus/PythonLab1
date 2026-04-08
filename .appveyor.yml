@@ -1,17 +1,16 @@
 image: Visual Studio 2019
 
 environment:
-  matrix:
-    - PYTHON_HOME: C:\Python38
-      PYTHON_VERSION: 3.8
+  PYTHON_HOME: C:\Python38
 
 install:
   - set PATH=%PYTHON_HOME%;%PYTHON_HOME%\Scripts;%PATH%
   - python -m pip install --upgrade pip
-  - pip install flask gunicorn requests
+  - pip install flask
 
 test_script:
   - cd flaskapp
-  - python -c "from some_app import app; print('OK')"
+  - python -c "from some_app import app; print('Import OK')"
+  - python -c "from some_app import app; print(app.url_map)"  # показать все маршруты
 
 build: off
