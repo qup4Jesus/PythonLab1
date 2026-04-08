@@ -1,5 +1,9 @@
 language: python
+build: off
+
 install:
- - pip3 install flask
-script:
- - python3 ./flaskapp/some_app.py 
+ - pip3 install flask gunicorn requests flask-bootstrap flask-wtf pillow
+
+test_script:
+ - cd flaskapp
+ - powershell -ExecutionPolicy Bypass -File run-tests.ps1
