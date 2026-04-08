@@ -2,7 +2,7 @@ language: python
 build: off
 
 install:
- - pip3 install flask gunicorn requests flask-bootstrap flask-wtf pillow
+ - pip install flask gunicorn requests flask-bootstrap flask-wtf pillow
 
 test_script:
  - cd flaskapp
