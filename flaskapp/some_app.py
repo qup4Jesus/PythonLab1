@@ -185,4 +185,28 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Эта переменная автоматически устанавливается AppVeyor'ом
+    is_ci = 'APPVEYOR' in os.environ
+
+    if is_ci:
+        # Логика для CI: запускаем сервер на 3 секунды и выходим
+        print("Running in CI mode, starting server for a quick check...")
+
+
+        # Функция для остановки сервера через 3 секунды
+        def shutdown_server():
+            time.sleep(3)
+            print("Time's up! Shutting down the CI server.")
+            os._exit(0)  # Принудительно завершаем процесс
+
+
+        # Запускаем таймер в отдельном потоке
+        import threading, time
+
+        threading.Thread(target=shutdown_server, daemon=True).start()
+
+        # Запускаем сервер
+        app.run(debug=False, use_reloader=False, host='0.0.0.0', port=5000)
+    else:
+        # Обычный режим для локальной разработки
+        app.run(debug=True)
