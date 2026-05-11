@@ -1,0 +1,14 @@
+image: Ubuntu  # Используем Ubuntu — проще для Python
+
+environment:
+  PYTHON: "3.9"
+
+install:
+  - pip install --upgrade pip
+  - pip install -r flaskapp/requirements.txt
+
+build: off
+
+test_script:
+  - cd flaskapp
+  - python -c "from some_app import app; print('App imports successfully')"
